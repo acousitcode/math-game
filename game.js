@@ -8,19 +8,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 生成随机数学计算和选项
     function generateMathProblem() {
-        const num1 = Math.floor(Math.random() * 10) + 1;
+        const num1 = Math.floor(Math.random() * 10) + 1; // 1-10的数字
         const num2 = Math.floor(Math.random() * 10) + 1;
-        const operators = ['+', '-', '*', '/'];
-        const operator = operators[Math.floor(Math.random() * operators.length)];
+        const operator = Math.random() > 0.3 ? '+' : '-'; // 70%加法，30%减法
         
-        // 计算正确答案
-        switch(operator) {
-            case '+': currentAnswer = num1 + num2; break;
-            case '-': currentAnswer = num1 - num2; break;
-            case '*': currentAnswer = num1 * num2; break;
-            case '/': currentAnswer = Math.round((num1 / num2) * 100) / 100; break;
-        }
+        // 确保减法结果不为负数
+        currentAnswer = operator === '+' ? 
+            num1 + num2 : 
+            Math.max(num1, num2) - Math.min(num1, num2);
         
+        // 调整题目显示，大的数字在前
+        const displayNum1 = operator === '+' ? num1 : Math.max(num1, num2);
+        const displayNum2 = operator === '+' ? num2 : Math.min(num1, num2);
+
         // 生成选项（包含1个正确答案和3个错误答案）
         const options = generateOptions(currentAnswer);
         correctOptionIndex = Math.floor(Math.random() * 4);
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
             btn.className = 'option-btn';
         });
         
-        return `${num1} ${operator} ${num2} = ?`;
+        return `${displayNum1} ${operator} ${displayNum2} = ?`;
     }
 
     // 生成错误选项
@@ -49,18 +49,40 @@ document.addEventListener('DOMContentLoaded', function() {
         return options;
     }
 
-    // 搞笑语句库
+    // 100句小学生流行鼓励语
     const funnyMessages = [
-        "数学不会骗人，但我会！",
-        "你的大脑比计算器还快！",
-        "这题连爱因斯坦都做错过！",
-        "别灰心，至少你长得好看！",
-        "正确答案在风中飘扬~",
-        "数学是门艺术，你是个艺术家！",
-        "这题太难了，我们换一题吧！",
-        "你的答案让我想起了毕加索的画",
-        "数学老师说：差不多就对了！",
-        "正确答案？那是什么？可以吃吗？"
+        "泰酷辣！全对啦！", "尊嘟假嘟？这么厉害！", "666啊！数学小天才！",
+        "你是我的神！", "绝绝子！完全正确！", "yyds！永远的神！",
+        "栓Q！答得太棒了！", "这也太秀了吧！", "我真的会谢！这么聪明！",
+        "你是懂数学的！", "太顶了！", "好绝一孩子！", "这波操作我给满分！",
+        "数学课代表就是你！", "离谱！但合理！", "蚌埠住了！太强了！",
+        "你是懂做题的！", "这数学，爱了爱了！", "暴风吸入知识！",
+        "你是懂考试的！", "这正确率，慕了！", "数学鬼才！",
+        "这脑瓜子咋长的！", "做题家实锤！", "这数学，泰裤辣！",
+        "你是我的互联网嘴替！", "这数学，6翻了！", "做题机器！",
+        "这正确率，赢麻了！", "数学king/queen！", "做题做到飞起！",
+        "这数学，我哭死！", "你是懂练习的！", "这脑回路，绝了！",
+        "做题小能手！", "这数学，我直接跪了！", "你是懂学习的！",
+        "这正确率，鲨疯了！", "数学带师！", "做题做到手软！",
+        "这数学，我直接爱住！", "你是懂复习的！", "这脑洞，我服了！",
+        "做题狂魔！", "这数学，我直接respect！", "你是懂思考的！",
+        "这正确率，绝绝子！", "数学大佬！", "做题做到停不下来！",
+        "这数学，我直接跪服！", "你是懂练习册的！", "这脑力，我酸了！",
+        "做题小天才！", "这数学，我直接破防！", "你是懂考试的！",
+        "这正确率，yyds！", "数学课代表！", "做题做到飞起！",
+        "这数学，我直接爱了！", "你是懂作业的！", "这智商，我慕了！",
+        "做题小达人！", "这数学，我直接跪了！", "你是懂刷题的！",
+        "这正确率，赢麻了！", "数学小能手！", "做题做到手抽筋！",
+        "这数学，我直接respect！", "你是懂复习的！", "这脑回路，绝了！",
+        "做题小天才！", "这数学，我直接跪服！", "你是懂练习的！",
+        "这正确率，绝绝子！", "数学大佬！", "做题做到停不下来！",
+        "这数学，我直接爱住！", "你是懂思考的！", "这脑洞，我服了！",
+        "做题狂魔！", "这数学，我直接破防！", "你是懂学习的！",
+        "这正确率，鲨疯了！", "数学带师！", "做题做到手软！",
+        "这数学，我哭死！", "你是懂考试的！", "这脑瓜子咋长的！",
+        "做题机器！", "这数学，6翻了！", "你是懂做题的！",
+        "这正确率，我直接跪了！", "数学king/queen！", "做题做到飞起！",
+        "这数学，泰裤辣！", "你是懂练习册的！", "这智商，我酸了！"
     ];
 
     // 检查答案

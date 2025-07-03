@@ -22,10 +22,10 @@ body {
 }
 
 .question {
-    font-size: 24px;
+    font-size: 48px;
     margin-bottom: 20px;
     color: #b0b0b0;
-    min-height: 30px;
+    min-height: 40px;
 }
 
 .options-container {
@@ -38,10 +38,10 @@ body {
 
 .option-btn {
     width: 100%;
-    padding: 15px;
+    padding: 18px;
     border: 1px solid #333333;
     border-radius: 8px;
-    font-size: 18px;
+    font-size: 32px;
     cursor: pointer;
     transition: all 0.3s;
     color: #b0b0b0;
@@ -81,7 +81,7 @@ body {
     margin: 20px auto;
     font-weight: bold;
     min-height: 60px;
-    font-size: 28px;
+    font-size: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
