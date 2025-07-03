@@ -37,16 +37,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 生成错误选项
     function generateOptions(correctAnswer) {
-        const options = [];
-        for (let i = 0; i < 3; i++) {
-            let wrongAnswer;
-            do {
-                wrongAnswer = correctAnswer + (Math.floor(Math.random() * 5) + 1) * (Math.random() > 0.5 ? 1 : -1);
-            } while (wrongAnswer === correctAnswer || options.includes(wrongAnswer));
-            options.push(wrongAnswer);
+        const options = new Set();
+        
+        // 确保生成3个唯一的错误答案
+        while (options.size < 3) {
+            // 扩大随机范围，避免与正确答案太接近
+            const offset = (Math.floor(Math.random() * 10) + 5) * (Math.random() > 0.5 ? 1 : -1);
+            const wrongAnswer = correctAnswer + offset;
+            
+            // 确保错误答案不为负且不等于正确答案
+            if (wrongAnswer > 0 && wrongAnswer !== correctAnswer) {
+                options.add(wrongAnswer);
+            }
         }
-        options.push(0); // 占位，会被正确答案替换
-        return options;
+        
+        // 转换为数组并添加占位符
+        const optionArray = Array.from(options);
+        optionArray.push(0); // 占位，会被正确答案替换
+        return optionArray;
     }
 
     // 100句小学生流行鼓励语
